@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PhotoTrip.Core.Domain
 {
-    public class Point
+    public class Point : AuditableEntity
     {
         [Key]
         public int Id { get; set; }

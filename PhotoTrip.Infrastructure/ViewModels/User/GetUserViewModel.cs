@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PhotoTrip.Core.Domain
+namespace PhotoTrip.Infrastructure.ViewModels.User
 {
-    public class User : AuditableEntity
+    public class GetUserViewModel
     {
-        public int Id { get; set; }
-        public string Login { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
     }
 }

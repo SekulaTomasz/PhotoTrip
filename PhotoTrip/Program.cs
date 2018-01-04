@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using PhotoTrip.Infrastructure.Database;
 
 namespace PhotoTrip
 {
@@ -14,7 +16,19 @@ namespace PhotoTrip
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host  = BuildWebHost(args);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
+                    databaseInitializer.SeedAsync().Wait();
+                }
+                catch { }
+            }
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
