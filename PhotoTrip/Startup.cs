@@ -42,6 +42,10 @@ namespace PhotoTrip
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPointRepository, PointRepository>();
+            services.AddScoped<IPointService, PointService>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventService, EventService>();
             services.AddMvc();
 
             services.AddSwaggerGen(c =>

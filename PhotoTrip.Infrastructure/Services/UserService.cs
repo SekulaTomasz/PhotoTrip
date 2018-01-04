@@ -22,9 +22,9 @@ namespace PhotoTrip.Infrastructure.Services
         }
 
 
-        public async Task<IEnumerable<GetUserViewModel>> GetAll()
+        public IEnumerable<GetUserViewModel> GetAll()
         {
-            var result = await _userRepository.GetListAsync();
+            var result = _userRepository.GetList();
             return Mapper.Map<IEnumerable<User>, IEnumerable<GetUserViewModel>>(result);
         }
     }

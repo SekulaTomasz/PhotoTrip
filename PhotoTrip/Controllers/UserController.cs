@@ -21,10 +21,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<GetUserViewModel>> GetAll()
+        public IEnumerable<GetUserViewModel> GetAll()
         {
-            var result = await _userService.GetAll();
-            return result;
+            return _userService.GetAll();
         }
 
     }

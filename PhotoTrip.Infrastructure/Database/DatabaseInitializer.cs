@@ -37,7 +37,31 @@ namespace PhotoTrip.Infrastructure.Database
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
             }
-            throw new NotImplementedException();
+            if (!_context.Events.Any())
+            {
+                Event @event = new Event()
+                {
+                    Name = "testowy event",
+                    PhotoName = Guid.NewGuid().ToString(),
+                    User = _context.Users.FirstOrDefault()
+                };
+                _context.Events.Add(@event);
+                await _context.SaveChangesAsync();
+            }
+            if (!_context.Points.Any())
+            {
+                Point point = new Point()
+                {
+                    Latitude = 123123,
+                    Longitude = 1312312,
+                    Name = "Punkt",
+                    User = _context.Users.FirstOrDefault(),
+                    Events = _context.Events.ToList()
+                };
+
+                _context.Points.Add(point);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

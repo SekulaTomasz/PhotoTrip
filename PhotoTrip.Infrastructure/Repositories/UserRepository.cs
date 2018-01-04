@@ -19,28 +19,27 @@ namespace PhotoTrip.Infrastructure.Repositories
             _context = context;
         }
 
-
-        public Task DeleteAsync(User entity)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetAsync(int id)
+        public User Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User>> GetListAsync()
+        public IEnumerable<User> GetList()
         {
-            return await _context.Users.ToListAsync();
+            return _context.Users.ToList();
         }
 
-        public Task PostAsync(User entity)
+        public void Post(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task PutAsync(User entity)
+        public void Put(User entity)
         {
             throw new NotImplementedException();
         }

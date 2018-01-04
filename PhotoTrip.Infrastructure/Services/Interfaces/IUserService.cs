@@ -8,6 +8,6 @@ namespace PhotoTrip.Infrastructure.Services.Interfaces
 {
     public interface IUserService : IService
     {
-        Task<IEnumerable<GetUserViewModel>> GetAll();
+        IEnumerable<GetUserViewModel> GetAll();
     }
 }
