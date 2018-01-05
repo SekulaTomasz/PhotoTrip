@@ -20,10 +20,10 @@ namespace PhotoTrip.Infrastructure.Services
             _pointRepository = pointRepository;
         }
 
-        public void AddPoint(CreatePointViewModel point)
+        public Point AddPoint(CreatePointViewModel point)
         {
             var newPoint = Mapper.Map<CreatePointViewModel, Point>(point);
-            _pointRepository.Post(newPoint);
+            return _pointRepository.Post(newPoint);
         }
 
         public PointDto GetPoint(int id)
@@ -32,11 +32,11 @@ namespace PhotoTrip.Infrastructure.Services
             return Mapper.Map<Point, PointDto>(result);
         }
 
-        public void UpdatePoint(int id, UpdatePointViewModel point)
+        public Point UpdatePoint(int id, UpdatePointViewModel point)
         {
             var updatedPoint = Mapper.Map<UpdatePointViewModel, Point>(point);
             updatedPoint.Id = id;
-            _pointRepository.Put(updatedPoint);
+            return _pointRepository.Put(updatedPoint);
         }
 
         public void DeletePoint(int id)

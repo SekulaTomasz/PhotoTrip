@@ -22,25 +22,27 @@ namespace PhotoTrip.Infrastructure.Repositories
 
         public Point Get(int id)
         {
-            return _context.Points.SingleOrDefault(x => x.Id == id);
+            return _context.Points.Include("Events").SingleOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Point> GetList()
         {
-            return _context.Points.ToList();
+            return _context.Points.Include("Events").ToList();
         }
 
 
-        public void Post(Point entity)
+        public Point Post(Point entity)
         {
             _context.Points.Add(entity);
             _context.SaveChanges();
+            return entity;
         }
 
-        public void Put(Point entity)
+        public Point Put(Point entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+            return entity;
         }
 
         public void Delete(int id)

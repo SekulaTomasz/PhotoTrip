@@ -9,8 +9,8 @@ namespace PhotoTrip.Core.Repositories
     {
         T Get(int id);
         IEnumerable<T> GetList();
-        void Post(T entity);
-        void Put(T entity);
+        T Post(T entity);
+        T Put(T entity);
         void Delete(int id);
     }
 }

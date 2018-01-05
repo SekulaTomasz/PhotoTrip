@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PhotoTrip.Core.Domain;
 using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.ViewModels.Point;
 using System.Collections.Generic;
@@ -37,9 +38,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public void UpdatePoint(int id,[FromBody] UpdatePointViewModel point)
+        public Point UpdatePoint(int id,[FromBody]UpdatePointViewModel point)
         {
-            _pointService.UpdatePoint(id, point);
+            return _pointService.UpdatePoint(id, point);
         }
 
         [HttpDelete("{id}")]

@@ -34,12 +34,12 @@ namespace PhotoTrip.Infrastructure.Repositories
             return _context.Users.ToList();
         }
 
-        public void Post(User entity)
+        public User Post(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Put(User entity)
+        public User Put(User entity)
         {
             throw new NotImplementedException();
         }

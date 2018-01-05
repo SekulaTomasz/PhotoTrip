@@ -17,10 +17,10 @@ namespace PhotoTrip.Infrastructure.Services
             _eventRepository = eventRepository;
         }
 
-        public void AddEvent(CreateEventViewModel @event)
+        public Event AddEvent(CreateEventViewModel @event)
         {
             var newEvent = Mapper.Map<CreateEventViewModel, Event>(@event);
-            _eventRepository.Post(newEvent);
+            return _eventRepository.Post(newEvent);
         }
 
         public void DeleteEvent(int id)
@@ -40,11 +40,11 @@ namespace PhotoTrip.Infrastructure.Services
             return Mapper.Map<Event, EventDto>(result);
         }
 
-        public void UpdateEvent(int id, UpdateEventViewModel @event)
+        public Event UpdateEvent(int id, UpdateEventViewModel @event)
         {
             var updatedEvent = Mapper.Map<UpdateEventViewModel, Event>(@event);
             updatedEvent.Id = id;
-            _eventRepository.Put(updatedEvent);
+            return _eventRepository.Put(updatedEvent);
         }
     }
 }

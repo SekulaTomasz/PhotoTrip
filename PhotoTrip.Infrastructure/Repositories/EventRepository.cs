@@ -40,17 +40,20 @@ namespace PhotoTrip.Infrastructure.Repositories
             return _context.Events.ToList();
         }
 
-        public void Post(Event entity)
+        public Event Post(Event entity)
         {
             entity.Point = _context.Points.FirstOrDefault(x => x.Id == entity.Point.Id);
             _context.Events.Add(entity);
             _context.SaveChanges();
+            return entity;
         }
 
-        public void Put(Event entity)
+        public Event Put(Event entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+            return entity;
         }
+
     }
 }

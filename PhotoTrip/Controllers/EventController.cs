@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.ViewModels.Event;
+using PhotoTrip.Core.Domain;
 
 namespace PhotoTrip.Api.Controllers
 {
@@ -33,15 +34,15 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpPost]
-        public void AddEvent([FromBody]CreateEventViewModel @event)
+        public Event AddEvent([FromBody]CreateEventViewModel @event)
         {
-            _eventService.AddEvent(@event);
+            return _eventService.AddEvent(@event);
         }
 
         [HttpPut("{id}")]
-        public void UpdateEvent(int id, [FromBody] UpdateEventViewModel @event)
+        public Event UpdateEvent(int id,[FromBody] UpdateEventViewModel @event)
         {
-            _eventService.UpdateEvent(id, @event);
+            return _eventService.UpdateEvent(id, @event);
         }
 
         [HttpDelete("{id}")]

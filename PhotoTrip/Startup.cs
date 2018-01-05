@@ -11,6 +11,7 @@ using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.Services;
 using PhotoTrip.Core.Repositories;
 using PhotoTrip.Infrastructure.Repositories;
+using Newtonsoft.Json;
 
 namespace PhotoTrip
 {
@@ -46,7 +47,10 @@ namespace PhotoTrip
             services.AddScoped<IPointService, PointService>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventService, EventService>();
-            services.AddMvc();
+
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             services.AddSwaggerGen(c =>
             {
