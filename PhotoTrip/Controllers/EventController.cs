@@ -46,9 +46,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteEvent(int id)
+        public async Task DeleteEvent(int id)
         {
-            _eventService.DeleteEvent(id);
+            await _eventService.DeleteEvent(id);
         }
 
     }

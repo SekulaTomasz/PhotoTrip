@@ -19,7 +19,7 @@ namespace PhotoTrip.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             throw new NotImplementedException();
         }

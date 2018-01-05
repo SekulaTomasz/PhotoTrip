@@ -16,20 +16,21 @@ namespace PhotoTrip
     {
         public static void Main(string[] args)
         {
-            var host  = BuildWebHost(args);
+            var host = BuildWebHost(args);
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
-                    databaseInitializer.SeedAsync().Wait();
+                    //var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
+                    //databaseInitializer.SeedAsync().Wait();
                 }
                 catch { }
             }
             host.Run();
         }
+
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

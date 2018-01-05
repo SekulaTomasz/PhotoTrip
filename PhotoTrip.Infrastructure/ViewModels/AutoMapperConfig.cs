@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PhotoTrip.Infrastructure.ViewModels.Event;
+using PhotoTrip.Infrastructure.ViewModels.Photo;
 using PhotoTrip.Infrastructure.ViewModels.Point;
 using PhotoTrip.Infrastructure.ViewModels.User;
 
@@ -18,6 +19,8 @@ namespace PhotoTrip.Infrastructure.ViewModels
             CreateMap<CreateEventViewModel, PhotoTrip.Core.Domain.Event>();
             CreateMap<PointIdentity, PhotoTrip.Core.Domain.Point>();
             CreateMap<PhotoTrip.Core.Domain.Point, PointIdentity>();
+            CreateMap<PhotoTrip.Core.Domain.Photo, PhotoDto>();
+            CreateMap<PhotoDto, PhotoTrip.Core.Domain.Photo>();
         }
     }
 }

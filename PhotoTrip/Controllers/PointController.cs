@@ -32,9 +32,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpPost]
-        public void AddPoint([FromBody]CreatePointViewModel point)
+        public async Task<Point> AddPoint([FromBody]CreatePointViewModel point)
         {
-            _pointService.AddPoint(point);
+            return await _pointService.AddPoint(point);
         }
 
         [HttpPut("{id}")]

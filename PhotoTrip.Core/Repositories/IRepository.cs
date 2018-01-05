@@ -11,6 +11,6 @@ namespace PhotoTrip.Core.Repositories
         Task<IEnumerable<T>> GetList();
         Task<T> Post(T entity);
         Task<T> Put(T entity);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

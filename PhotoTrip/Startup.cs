@@ -12,11 +12,13 @@ using PhotoTrip.Infrastructure.Services;
 using PhotoTrip.Core.Repositories;
 using PhotoTrip.Infrastructure.Repositories;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace PhotoTrip
 {
     public class Startup
     {
+        public IContainer ApplicationContainer { get; private set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -34,13 +36,14 @@ namespace PhotoTrip
                 options.UseSqlServer(Configuration["ConnectionStrings:PhotoTripConnection"], b => b.MigrationsAssembly("PhotoTrip.Api"));
             });
 
+            services.AddMemoryCache();
 
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<AutoMapperConfig>();
             });
 
-            services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+            //services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPointRepository, PointRepository>();
@@ -59,7 +62,7 @@ namespace PhotoTrip
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
 
             //var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
@@ -81,6 +84,7 @@ namespace PhotoTrip
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhotoTrip API V1");
             });
+            appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
             //if (env.IsDevelopment())
             //{
             //    app.UseDeveloperExceptionPage();

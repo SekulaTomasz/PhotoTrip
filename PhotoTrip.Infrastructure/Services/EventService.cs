@@ -24,9 +24,9 @@ namespace PhotoTrip.Infrastructure.Services
             return await _eventRepository.Post(newEvent);
         }
 
-        public void DeleteEvent(int id)
+        public async Task DeleteEvent(int id)
         {
-            _eventRepository.Delete(id);
+            await _eventRepository.Delete(id);
         }
 
         public async Task<IEnumerable<EventDto>> GetAllEvents()

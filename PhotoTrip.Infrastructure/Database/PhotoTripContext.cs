@@ -19,7 +19,7 @@ namespace PhotoTrip.Infrastructure.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder){ }
 
         public override int SaveChanges()
         {

@@ -22,18 +22,18 @@ namespace PhotoTrip.Infrastructure.Repositories
 
         public async Task<Point> Get(int id)
         {
-            return await _context.Points.Include("Events").SingleOrDefaultAsync(x => x.Id == id);
+            return await _context.Points.Include("Events").Include("Events.Photo").SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Point>> GetList()
         {
-            return await _context.Points.Include("Events").ToListAsync();
+            return await _context.Points.Include("Events").Include("Events.Photo").ToListAsync();
         }
 
 
         public async Task<Point> Post(Point entity)
         {
-            _context.Points.Add(entity);
+            await _context.Points.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -45,7 +45,7 @@ namespace PhotoTrip.Infrastructure.Repositories
             return entity;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var result = await Get(id);
             if (result == null)
@@ -53,7 +53,7 @@ namespace PhotoTrip.Infrastructure.Repositories
                 return;
             }
             _context.Points.Remove(result);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

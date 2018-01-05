@@ -8,6 +8,6 @@ namespace PhotoTrip.Infrastructure.ViewModels.Event
     public class EventDto
     {
         public string Name { get; set; }
-        public Photo Photo { get; set; }
+        public PhotoTrip.Core.Domain.Photo Photo { get; set; }
     }
 }

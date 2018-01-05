@@ -39,9 +39,9 @@ namespace PhotoTrip.Infrastructure.Services
             return await _pointRepository.Put(updatedPoint);
         }
 
-        public void DeletePoint(int id)
+        public async Task DeletePoint(int id)
         {
-            _pointRepository.Delete(id);
+            await _pointRepository.Delete(id);
         }
 
         public async Task<IEnumerable<PointDto>> GetAll()

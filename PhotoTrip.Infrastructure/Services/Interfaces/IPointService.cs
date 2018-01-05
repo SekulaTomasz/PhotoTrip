@@ -12,7 +12,7 @@ namespace PhotoTrip.Infrastructure.Services.Interfaces
         Task<PointDto> GetPoint(int id);
         Task<Point> AddPoint(CreatePointViewModel point);
         Task<Point> UpdatePoint(int id, UpdatePointViewModel point);
-        void DeletePoint(int id);
+        Task DeletePoint(int id);
         Task<IEnumerable<PointDto>> GetAll();
         Task<IEnumerable<PointDto>> GetPoint(float latitude, float longitude);
     }
