@@ -42,7 +42,10 @@ namespace PhotoTrip.Infrastructure.Database
                 Event @event = new Event()
                 {
                     Name = "testowy event",
-                    PhotoName = Guid.NewGuid().ToString(),
+                    Photo = new Photo()
+                    {
+                        PhotoName = Guid.NewGuid().ToString()
+                    },
                     User = _context.Users.FirstOrDefault()
                 };
                 _context.Events.Add(@event);

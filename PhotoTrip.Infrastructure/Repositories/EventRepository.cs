@@ -19,39 +19,39 @@ namespace PhotoTrip.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var result = Get(id);
+            var result = await Get(id);
             if (result == null)
             {
                 return;
             }
             _context.Events.Remove(result);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Event Get(int id)
+        public async Task<Event> Get(int id)
         {
-            return _context.Events.Single(x => x.Id == id);
+            return await _context.Events.SingleAsync(x => x.Id == id);
         }
 
-        public IEnumerable<Event> GetList()
+        public async Task<IEnumerable<Event>> GetList()
         {
-            return _context.Events.ToList();
+            return await _context.Events.ToListAsync();
         }
 
-        public Event Post(Event entity)
+        public async Task<Event> Post(Event entity)
         {
-            entity.Point = _context.Points.FirstOrDefault(x => x.Id == entity.Point.Id);
+            entity.Point = await _context.Points.FirstOrDefaultAsync(x => x.Id == entity.Point.Id);
             _context.Events.Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public Event Put(Event entity)
+        public async Task<Event> Put(Event entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return entity;
         }
 

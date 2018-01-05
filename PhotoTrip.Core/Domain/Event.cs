@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PhotoTrip.Core.Domain
@@ -10,7 +11,8 @@ namespace PhotoTrip.Core.Domain
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string PhotoName { get; set; }
+        
+        public Photo Photo { get; set; }
         public Point Point { get; set; }
         public User User { get; set; }
     }

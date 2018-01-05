@@ -24,22 +24,22 @@ namespace PhotoTrip.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public User Get(int id)
+        public async Task<User> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetList()
+        public async Task<IEnumerable<User>> GetList()
         {
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
-        public User Post(User entity)
+        public async Task<User> Post(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public User Put(User entity)
+        public async Task<User> Put(User entity)
         {
             throw new NotImplementedException();
         }

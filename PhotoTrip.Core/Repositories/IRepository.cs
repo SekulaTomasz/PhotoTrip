@@ -7,10 +7,10 @@ namespace PhotoTrip.Core.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        T Get(int id);
-        IEnumerable<T> GetList();
-        T Post(T entity);
-        T Put(T entity);
+        Task<T> Get(int id);
+        Task<IEnumerable<T>> GetList();
+        Task<T> Post(T entity);
+        Task<T> Put(T entity);
         void Delete(int id);
     }
 }

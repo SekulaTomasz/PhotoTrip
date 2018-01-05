@@ -19,15 +19,15 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PointDto> GetAllPoints()
+        public async Task<IEnumerable<PointDto>> GetAllPoints()
         {
-            return _pointService.GetAll();
+            return await _pointService.GetAll();
         }
 
         [HttpGet("{id}")]
-        public PointDto GetPoint(int id)
+        public async Task<PointDto> GetPoint(int id)
         {
-            var result =  _pointService.GetPoint(id);
+            var result = await _pointService.GetPoint(id);
             return result;
         }
 
@@ -38,9 +38,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public Point UpdatePoint(int id,[FromBody]UpdatePointViewModel point)
+        public async Task<Point> UpdatePoint(int id,[FromBody]UpdatePointViewModel point)
         {
-            return _pointService.UpdatePoint(id, point);
+            return await _pointService.UpdatePoint(id, point);
         }
 
         [HttpDelete("{id}")]
@@ -50,9 +50,9 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpGet("nearest")]
-        public IEnumerable<PointDto> GetNearest(float latitude, float longitude)
+        public async Task<IEnumerable<PointDto>> GetNearest(float latitude, float longitude)
         {
-            return _pointService.GetPoint(latitude, longitude);
+            return await _pointService.GetPoint(latitude, longitude);
         }
 
     }

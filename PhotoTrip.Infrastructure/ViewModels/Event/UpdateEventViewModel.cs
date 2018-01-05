@@ -9,7 +9,7 @@ namespace PhotoTrip.Infrastructure.ViewModels.Event
     public class UpdateEventViewModel
     {
         public string Name { get; set; }
-        public string PhotoName { get; set; }
+        public Photo Photo { get; set; }
         public PointIdentity Point { get; set; }
     }
 }

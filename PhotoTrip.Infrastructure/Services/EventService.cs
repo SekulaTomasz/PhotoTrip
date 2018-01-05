@@ -4,6 +4,7 @@ using PhotoTrip.Core.Domain;
 using PhotoTrip.Core.Repositories;
 using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.ViewModels.Event;
+using System.Threading.Tasks;
 
 namespace PhotoTrip.Infrastructure.Services
 {
@@ -17,10 +18,10 @@ namespace PhotoTrip.Infrastructure.Services
             _eventRepository = eventRepository;
         }
 
-        public Event AddEvent(CreateEventViewModel @event)
+        public async Task<Event> AddEvent(CreateEventViewModel @event)
         {
             var newEvent = Mapper.Map<CreateEventViewModel, Event>(@event);
-            return _eventRepository.Post(newEvent);
+            return await _eventRepository.Post(newEvent);
         }
 
         public void DeleteEvent(int id)
@@ -28,23 +29,23 @@ namespace PhotoTrip.Infrastructure.Services
             _eventRepository.Delete(id);
         }
 
-        public IEnumerable<EventDto> GetAllEvents()
+        public async Task<IEnumerable<EventDto>> GetAllEvents()
         {
-            var result = _eventRepository.GetList();
+            var result = await _eventRepository.GetList();
             return Mapper.Map<IEnumerable<Event>, IEnumerable<EventDto>>(result);
         }
 
-        public EventDto GetEvent(int id)
+        public async Task<EventDto> GetEvent(int id)
         {
-            var result = _eventRepository.Get(id);
+            var result = await _eventRepository.Get(id);
             return Mapper.Map<Event, EventDto>(result);
         }
 
-        public Event UpdateEvent(int id, UpdateEventViewModel @event)
+        public async Task<Event> UpdateEvent(int id, UpdateEventViewModel @event)
         {
             var updatedEvent = Mapper.Map<UpdateEventViewModel, Event>(@event);
             updatedEvent.Id = id;
-            return _eventRepository.Put(updatedEvent);
+            return await _eventRepository.Put(updatedEvent);
         }
     }
 }

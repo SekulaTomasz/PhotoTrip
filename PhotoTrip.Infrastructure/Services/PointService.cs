@@ -20,23 +20,23 @@ namespace PhotoTrip.Infrastructure.Services
             _pointRepository = pointRepository;
         }
 
-        public Point AddPoint(CreatePointViewModel point)
+        public async Task<Point> AddPoint(CreatePointViewModel point)
         {
             var newPoint = Mapper.Map<CreatePointViewModel, Point>(point);
-            return _pointRepository.Post(newPoint);
+            return await _pointRepository.Post(newPoint);
         }
 
-        public PointDto GetPoint(int id)
+        public async Task<PointDto> GetPoint(int id)
         {
-            var result = _pointRepository.Get(id);
+            var result = await _pointRepository.Get(id);
             return Mapper.Map<Point, PointDto>(result);
         }
 
-        public Point UpdatePoint(int id, UpdatePointViewModel point)
+        public async Task<Point> UpdatePoint(int id, UpdatePointViewModel point)
         {
             var updatedPoint = Mapper.Map<UpdatePointViewModel, Point>(point);
             updatedPoint.Id = id;
-            return _pointRepository.Put(updatedPoint);
+            return await _pointRepository.Put(updatedPoint);
         }
 
         public void DeletePoint(int id)
@@ -44,15 +44,15 @@ namespace PhotoTrip.Infrastructure.Services
             _pointRepository.Delete(id);
         }
 
-        public IEnumerable<PointDto> GetAll()
+        public async Task<IEnumerable<PointDto>> GetAll()
         {
-            var result = _pointRepository.GetList();
+            var result = await _pointRepository.GetList();
             return Mapper.Map<IEnumerable<Point>, IEnumerable<PointDto>>(result);
         }
 
-        public IEnumerable<PointDto> GetPoint(float latitude, float longitude)
+        public async Task<IEnumerable<PointDto>> GetPoint(float latitude, float longitude)
         {
-            var result = _pointRepository.GetList().ToList();
+            var result = await _pointRepository.GetList();
             if (result == null)
                 return null;
             var closest = result.OrderBy(x => Math.Abs(x.Latitude - latitude)).ThenBy(x => Math.Abs(x.Longitude - longitude)).Take(10);

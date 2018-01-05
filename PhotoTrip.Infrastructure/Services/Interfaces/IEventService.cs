@@ -3,15 +3,16 @@ using PhotoTrip.Infrastructure.ViewModels.Event;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PhotoTrip.Infrastructure.Services.Interfaces
 {
     public interface IEventService : IService
     {
-        EventDto GetEvent(int id);
-        IEnumerable<EventDto> GetAllEvents();
+        Task<EventDto> GetEvent(int id);
+        Task<IEnumerable<EventDto>> GetAllEvents();
         void DeleteEvent(int id);
-        Event AddEvent(CreateEventViewModel @event);
-        Event UpdateEvent(int id, UpdateEventViewModel @event);
+        Task<Event> AddEvent(CreateEventViewModel @event);
+        Task<Event> UpdateEvent(int id, UpdateEventViewModel @event);
     }
 }

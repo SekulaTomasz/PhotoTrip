@@ -22,27 +22,27 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public EventDto GetEvent(int id)
+        public async Task<EventDto> GetEvent(int id)
         {
-            return _eventService.GetEvent(id);
+            return await _eventService.GetEvent(id);
         }
 
         [HttpGet]
-        public IEnumerable<EventDto> GetAllEvents()
+        public async Task<IEnumerable<EventDto>> GetAllEvents()
         {
-            return _eventService.GetAllEvents();
+            return await _eventService.GetAllEvents();
         }
 
         [HttpPost]
-        public Event AddEvent([FromBody]CreateEventViewModel @event)
+        public async Task<Event> AddEvent([FromBody]CreateEventViewModel @event)
         {
-            return _eventService.AddEvent(@event);
+            return await _eventService.AddEvent(@event);
         }
 
         [HttpPut("{id}")]
-        public Event UpdateEvent(int id,[FromBody] UpdateEventViewModel @event)
+        public async Task<Event> UpdateEvent(int id,[FromBody] UpdateEventViewModel @event)
         {
-            return _eventService.UpdateEvent(id, @event);
+            return await _eventService.UpdateEvent(id, @event);
         }
 
         [HttpDelete("{id}")]
