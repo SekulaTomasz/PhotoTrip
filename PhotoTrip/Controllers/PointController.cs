@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PhotoTrip.Core.Domain;
 using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.ViewModels.Point;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 namespace PhotoTrip.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class PointController : Controller
+    [Authorize]
+    public class PointController : ApiBaseController
     {
         private readonly IPointService _pointService;
 
@@ -32,14 +33,16 @@ namespace PhotoTrip.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<Point> AddPoint([FromBody]CreatePointViewModel point)
+        public async Task<CreatePointViewModel> AddPoint([FromBody]CreatePointViewModel point)
         {
+            _pointService.UserEmail = UserEmail;
             return await _pointService.AddPoint(point);
         }
 
         [HttpPut("{id}")]
         public async Task<Point> UpdatePoint(int id,[FromBody]UpdatePointViewModel point)
         {
+            _pointService.UserEmail = UserEmail;
             return await _pointService.UpdatePoint(id, point);
         }
 

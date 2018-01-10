@@ -11,9 +11,10 @@ using System;
 namespace PhotoTrip.Api.Migrations
 {
     [DbContext(typeof(PhotoTripContext))]
-    partial class PhotoTripContextModelSnapshot : ModelSnapshot
+    [Migration("20180109144806_initialv7")]
+    partial class initialv7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +26,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CreatedBy");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Name");
@@ -34,8 +33,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<int?>("PhotoId");
 
                     b.Property<int?>("PointId");
-
-                    b.Property<int?>("UpdatedBy");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -65,8 +62,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CreatedBy");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<float>("Latitude");
@@ -74,8 +69,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<float>("Longitude");
 
                     b.Property<string>("Name");
-
-                    b.Property<int?>("UpdatedBy");
 
                     b.Property<DateTime>("UpdatedDate");
 

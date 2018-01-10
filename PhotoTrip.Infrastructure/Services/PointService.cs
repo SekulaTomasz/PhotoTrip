@@ -12,18 +12,21 @@ namespace PhotoTrip.Infrastructure.Services
 {
     public class PointService : IPointService
     {
-        private readonly IPointRepository _pointRepository;
+        public string UserEmail { get; set; }
 
+        private readonly IPointRepository _pointRepository;
 
         public PointService(IPointRepository pointRepository)
         {
             _pointRepository = pointRepository;
         }
 
-        public async Task<Point> AddPoint(CreatePointViewModel point)
+        public async Task<CreatePointViewModel> AddPoint(CreatePointViewModel point)
         {
+            _pointRepository.UserEmail = UserEmail;
             var newPoint = Mapper.Map<CreatePointViewModel, Point>(point);
-            return await _pointRepository.Post(newPoint);
+            var result = Mapper.Map<Point, CreatePointViewModel>(await _pointRepository.Post(newPoint));
+            return result;
         }
 
         public async Task<PointDto> GetPoint(int id)
@@ -34,6 +37,7 @@ namespace PhotoTrip.Infrastructure.Services
 
         public async Task<Point> UpdatePoint(int id, UpdatePointViewModel point)
         {
+            UserEmail = _pointRepository.UserEmail;
             var updatedPoint = Mapper.Map<UpdatePointViewModel, Point>(point);
             updatedPoint.Id = id;
             return await _pointRepository.Put(updatedPoint);

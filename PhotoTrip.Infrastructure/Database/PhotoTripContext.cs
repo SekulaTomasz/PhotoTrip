@@ -10,6 +10,7 @@ namespace PhotoTrip.Infrastructure.Database
 {
     public class PhotoTripContext : DbContext
     {
+        public string UserEmail { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Point> Points { get; set; }
@@ -39,15 +40,16 @@ namespace PhotoTrip.Infrastructure.Database
             var modifiedEntries = ChangeTracker.Entries()
                 .Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
+            var userid = Users.Where(x => x.Email == UserEmail).Select(x=>x.Id).FirstOrDefault();
 
             foreach (var entry in modifiedEntries)
             {
                 var entity = (IAuditableEntity)entry.Entity;
                 DateTime now = DateTime.UtcNow;
-
                 if (entry.State == EntityState.Added)
                 {
                     entity.CreatedDate = now;
+                    entity.CreatedBy = userid;
                 }
                 else
                 {
@@ -55,6 +57,7 @@ namespace PhotoTrip.Infrastructure.Database
                 }
 
                 entity.UpdatedDate = now;
+                entity.UpdatedBy = userid;
             }
         }
 

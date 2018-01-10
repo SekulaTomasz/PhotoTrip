@@ -9,8 +9,9 @@ namespace PhotoTrip.Infrastructure.Services.Interfaces
 {
     public interface IPointService : IService
     {
+        string UserEmail { get; set; }
         Task<PointDto> GetPoint(int id);
-        Task<Point> AddPoint(CreatePointViewModel point);
+        Task<CreatePointViewModel> AddPoint(CreatePointViewModel point);
         Task<Point> UpdatePoint(int id, UpdatePointViewModel point);
         Task DeletePoint(int id);
         Task<IEnumerable<PointDto>> GetAll();

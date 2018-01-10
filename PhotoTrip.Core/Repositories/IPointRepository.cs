@@ -7,5 +7,6 @@ namespace PhotoTrip.Core.Repositories
 {
     public interface IPointRepository : IRepository<Point>
     {
+        string UserEmail { get; set; }
     }
 }

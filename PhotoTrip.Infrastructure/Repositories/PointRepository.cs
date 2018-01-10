@@ -12,6 +12,7 @@ namespace PhotoTrip.Infrastructure.Repositories
 {
     public class PointRepository : IPointRepository
     {
+        public string UserEmail { get; set; }
 
         private readonly PhotoTripContext _context;
 
@@ -33,6 +34,7 @@ namespace PhotoTrip.Infrastructure.Repositories
 
         public async Task<Point> Post(Point entity)
         {
+            _context.UserEmail = UserEmail;
             await _context.Points.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -40,6 +42,7 @@ namespace PhotoTrip.Infrastructure.Repositories
 
         public async Task<Point> Put(Point entity)
         {
+            _context.UserEmail = UserEmail;
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return entity;

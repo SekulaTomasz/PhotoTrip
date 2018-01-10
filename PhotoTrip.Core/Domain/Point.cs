@@ -13,6 +13,5 @@ namespace PhotoTrip.Core.Domain
         public float Latitude { get; set; } //szerokosc
         public float Longitude { get; set; } //dlugosc
         public IEnumerable<Event> Events { get; set; }
-        public User User { get; set; }
     }
 }

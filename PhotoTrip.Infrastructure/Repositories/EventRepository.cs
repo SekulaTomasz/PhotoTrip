@@ -13,6 +13,7 @@ namespace PhotoTrip.Infrastructure.Repositories
     public class EventRepository : IEventRepository
     {
         private readonly PhotoTripContext _context;
+        public string UserEmail { get; set; }
 
         public EventRepository(PhotoTripContext context)
         {
@@ -43,6 +44,7 @@ namespace PhotoTrip.Infrastructure.Repositories
         public async Task<Event> Post(Event entity)
         {
             entity.Point = await _context.Points.FirstOrDefaultAsync(x => x.Id == entity.Point.Id);
+            _context.UserEmail = UserEmail;
             await _context.Events.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -51,6 +53,7 @@ namespace PhotoTrip.Infrastructure.Repositories
         public async Task<Event> Put(Event entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            _context.UserEmail = UserEmail;
             await _context.SaveChangesAsync();
             return entity;
         }

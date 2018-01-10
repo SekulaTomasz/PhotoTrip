@@ -11,9 +11,10 @@ using System;
 namespace PhotoTrip.Api.Migrations
 {
     [DbContext(typeof(PhotoTripContext))]
-    partial class PhotoTripContextModelSnapshot : ModelSnapshot
+    [Migration("20180109120325_initialv6")]
+    partial class initialv6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +26,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CreatedBy");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Name");
@@ -35,15 +34,17 @@ namespace PhotoTrip.Api.Migrations
 
                     b.Property<int?>("PointId");
 
-                    b.Property<int?>("UpdatedBy");
-
                     b.Property<DateTime>("UpdatedDate");
+
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PhotoId");
 
                     b.HasIndex("PointId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Events");
                 });
@@ -65,8 +66,6 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CreatedBy");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<float>("Latitude");
@@ -75,11 +74,13 @@ namespace PhotoTrip.Api.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("UpdatedBy");
-
                     b.Property<DateTime>("UpdatedDate");
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Points");
                 });
@@ -88,6 +89,8 @@ namespace PhotoTrip.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Email");
 
@@ -98,6 +101,8 @@ namespace PhotoTrip.Api.Migrations
                     b.Property<string>("Role");
 
                     b.Property<string>("Salt");
+
+                    b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
@@ -113,6 +118,17 @@ namespace PhotoTrip.Api.Migrations
                     b.HasOne("PhotoTrip.Core.Domain.Point", "Point")
                         .WithMany("Events")
                         .HasForeignKey("PointId");
+
+                    b.HasOne("PhotoTrip.Core.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PhotoTrip.Core.Domain.Point", b =>
+                {
+                    b.HasOne("PhotoTrip.Core.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

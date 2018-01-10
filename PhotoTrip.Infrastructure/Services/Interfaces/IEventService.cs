@@ -9,6 +9,7 @@ namespace PhotoTrip.Infrastructure.Services.Interfaces
 {
     public interface IEventService : IService
     {
+        string UserEmail { get; set; }
         Task<EventDto> GetEvent(int id);
         Task<IEnumerable<EventDto>> GetAllEvents();
         Task DeleteEvent(int id);

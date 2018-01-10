@@ -45,8 +45,7 @@ namespace PhotoTrip.Infrastructure.Database
                     Photo = new Photo()
                     {
                         PhotoName = Guid.NewGuid().ToString()
-                    },
-                    User = _context.Users.FirstOrDefault()
+                    }
                 };
                 _context.Events.Add(@event);
                 await _context.SaveChangesAsync();
@@ -58,7 +57,6 @@ namespace PhotoTrip.Infrastructure.Database
                     Latitude = 123123,
                     Longitude = 1312312,
                     Name = "Punkt",
-                    User = _context.Users.FirstOrDefault(),
                     Events = _context.Events.ToList()
                 };
 

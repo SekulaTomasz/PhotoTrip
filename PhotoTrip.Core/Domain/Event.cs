@@ -14,6 +14,5 @@ namespace PhotoTrip.Core.Domain
         
         public Photo Photo { get; set; }
         public Point Point { get; set; }
-        public User User { get; set; }
     }
 }

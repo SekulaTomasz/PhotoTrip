@@ -7,5 +7,6 @@ namespace PhotoTrip.Core.Repositories
 {
     public interface IEventRepository : IRepository<Event>
     {
+        string UserEmail { get; set; }
     }
 }

@@ -13,6 +13,9 @@ using PhotoTrip.Core.Repositories;
 using PhotoTrip.Infrastructure.Repositories;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhotoTrip
 {
@@ -43,7 +46,32 @@ namespace PhotoTrip
                 cfg.AddProfile<AutoMapperConfig>();
             });
 
-            //services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })                
+            .AddJwtBearer(jwt =>
+            {
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("jwt-secret-password")),
+                    ValidateAudience = false,
+                    ValidIssuer = "http://localhost:53826"
+                    
+                };
+            });
+            services.AddAuthorization(auth =>
+            {
+                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                         .RequireAuthenticatedUser()
+                         .Build());
+            });
+
+            
+            services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+            services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddSingleton<IEncrypter, Encrypter>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPointRepository, PointRepository>();
@@ -57,6 +85,13 @@ namespace PhotoTrip
 
             services.AddSwaggerGen(c =>
             {
+                c.AddSecurityDefinition("BearerAuth", new ApiKeyScheme
+                {
+                    Name = "Authorization",
+                    Description = "Login with your bearer authentication token. e.g. Bearer <auth-token>",
+                    In = "header",
+                    Type = "apiKey"
+                });
                 c.SwaggerDoc("v1", new Info { Title = "PhotoTrip API", Version = "v1" });
             });
         }
@@ -65,18 +100,7 @@ namespace PhotoTrip
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
 
-            //var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
-            //app.UseJwtBearerAuthentication(new JwtBearerOptions
-            //{
-            //    AutomaticAuthenticate = true,
-            //    TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidIssuer = jwtSettings.Issuer,
-            //        ValidateAudience = false,
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-            //    }
-            //});
-
+            app.UseAuthentication();
             app.UseMvc();
 
             app.UseSwagger();
@@ -89,11 +113,6 @@ namespace PhotoTrip
             //{
             //    app.UseDeveloperExceptionPage();
             //}
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

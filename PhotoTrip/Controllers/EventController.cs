@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using PhotoTrip.Infrastructure.Services.Interfaces;
 using PhotoTrip.Infrastructure.ViewModels.Event;
 using PhotoTrip.Core.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhotoTrip.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Event")]
-    public class EventController : Controller
+    [Authorize]
+    public class EventController : ApiBaseController
     {
         private readonly IEventService _eventService;
 
@@ -36,12 +37,14 @@ namespace PhotoTrip.Api.Controllers
         [HttpPost]
         public async Task<Event> AddEvent([FromBody]CreateEventViewModel @event)
         {
+            _eventService.UserEmail = UserEmail;
             return await _eventService.AddEvent(@event);
         }
 
         [HttpPut("{id}")]
         public async Task<Event> UpdateEvent(int id,[FromBody] UpdateEventViewModel @event)
         {
+            _eventService.UserEmail = UserEmail;
             return await _eventService.UpdateEvent(id, @event);
         }
 

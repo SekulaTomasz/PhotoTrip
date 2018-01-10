@@ -11,7 +11,7 @@ namespace PhotoTrip.Infrastructure.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
-
+        public string UserEmail { get; set; }
 
         public EventService(IEventRepository eventRepository)
         {
@@ -20,6 +20,7 @@ namespace PhotoTrip.Infrastructure.Services
 
         public async Task<Event> AddEvent(CreateEventViewModel @event)
         {
+            _eventRepository.UserEmail = UserEmail;
             var newEvent = Mapper.Map<CreateEventViewModel, Event>(@event);
             return await _eventRepository.Post(newEvent);
         }
@@ -43,6 +44,7 @@ namespace PhotoTrip.Infrastructure.Services
 
         public async Task<Event> UpdateEvent(int id, UpdateEventViewModel @event)
         {
+            _eventRepository.UserEmail = UserEmail;
             var updatedEvent = Mapper.Map<UpdateEventViewModel, Event>(@event);
             updatedEvent.Id = id;
             return await _eventRepository.Put(updatedEvent);

@@ -23,8 +23,8 @@ namespace PhotoTrip
                 var services = scope.ServiceProvider;
                 try
                 {
-                    //var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
-                    //databaseInitializer.SeedAsync().Wait();
+                    var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
+                    databaseInitializer.SeedAsync().Wait();
                 }
                 catch { }
             }

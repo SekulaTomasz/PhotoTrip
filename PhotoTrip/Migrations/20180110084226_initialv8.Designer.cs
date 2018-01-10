@@ -11,9 +11,10 @@ using System;
 namespace PhotoTrip.Api.Migrations
 {
     [DbContext(typeof(PhotoTripContext))]
-    partial class PhotoTripContextModelSnapshot : ModelSnapshot
+    [Migration("20180110084226_initialv8")]
+    partial class initialv8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
