@@ -37,7 +37,7 @@ namespace PhotoTrip.Infrastructure.Services
 
         public async Task<Point> UpdatePoint(int id, UpdatePointViewModel point)
         {
-            UserEmail = _pointRepository.UserEmail;
+            _pointRepository.UserEmail = UserEmail;
             var updatedPoint = Mapper.Map<UpdatePointViewModel, Point>(point);
             updatedPoint.Id = id;
             return await _pointRepository.Put(updatedPoint);

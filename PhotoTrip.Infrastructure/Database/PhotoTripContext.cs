@@ -54,6 +54,7 @@ namespace PhotoTrip.Infrastructure.Database
                 else
                 {
                     base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
+                    base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
                 }
 
                 entity.UpdatedDate = now;

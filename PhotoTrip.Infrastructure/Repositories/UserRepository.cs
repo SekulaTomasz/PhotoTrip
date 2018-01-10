@@ -19,6 +19,11 @@ namespace PhotoTrip.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<bool> CheckIsExist(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
+        }
+
         public async Task Delete(int id)
         {
             throw new NotImplementedException();
@@ -27,6 +32,11 @@ namespace PhotoTrip.Infrastructure.Repositories
         public async Task<User> Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<User>> GetList()
